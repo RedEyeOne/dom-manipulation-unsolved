@@ -2,7 +2,7 @@
  * SORTING NODES WITHIN A CONTAINER
  * Please, make sure to read the following files in the exercises-info folder before you start
  * * 01 SelectNodes.md
-*/
+ */
 
 /**
  * @task
@@ -12,8 +12,9 @@
  */
 
 // Your code goes here...
-
-
+const itemSelector = ".item";
+const allItems = document.querySelectorAll(itemSelector);
+// console.log(allItems);
 
 /**
  * @task
@@ -23,8 +24,8 @@
  * */
 
 // Your code goes here
-
-
+const mainSelector = "#main";
+const main = document.querySelector(mainSelector);
 
 /**
  * @task
@@ -34,8 +35,8 @@
  */
 
 // Your code goes here
-
-
+const favSelector = "#favs";
+const favs = document.querySelector(favSelector);
 
 /**
  * @task
@@ -47,8 +48,15 @@
  */
 
 // Your code goes here
+function updateCollections(id, direction) {
+	let toMove = Array.from(allItems).find(
+		(el) => el.id === id
+	);
 
-
+	if (direction === "toFav") favs.appendChild(toMove);
+	else if (direction === "toMain")
+		main.appendChild(toMove);
+}
 
 /**
  * @task
@@ -65,5 +73,13 @@
  */
 
 // Your code goes here...
-
-
+allItems.forEach((item) => {
+	item.addEventListener("click", function () {
+		let id = item.id;
+		let currentParent = item.parentElement.id;
+		let toSection =
+			currentParent === "main" ? "toFav" : "toMain";
+		updateCollections(id, toSection);
+		console.log(toSection);
+	});
+});
